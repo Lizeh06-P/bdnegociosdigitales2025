@@ -81,3 +81,45 @@ select *from producto1
 where categoriaid=5
 
   select *from categoria 
+
+  create table  cliente (
+  clienteid int not null identity (1,1),
+  codigocliente varchar(15) not null,
+  nombre varchar(30) not null,
+  direccion varchar (100) not null,
+  telefono varchar(19),
+  constraint pk_cliente
+  primary key (clienteid),
+  constraint unico_codigocliente
+  unique(codigocliente)
+);
+create table dealleorden(
+ordenfk int not null,
+productofk int not null,
+preciocompra money not null,
+cantidad int not null,
+constraint pk_detalleorden
+primary key(ordenfk,productofk),
+constraint chk_preciocompra
+check(preciocompra>0.0 and preciocompra<20000),
+constraint chk_cantidad
+check(cantidad>0),
+constraint fk_detalleorden_producto
+foreign key (productofk)
+references producto1(productoid)
+);
+create table oredencompra(
+ordenid int not null identity(1,1),
+fechacompra date not null,
+cliente int not null,
+constraint pk_ordencompra
+primary key (ordenid),
+constraint fk_ordencompra_cliente
+foreign key(cliente)
+references cliente(clienteid)
+);
+alter table dealleorden
+add constraint fk_detalleorden_ordencompra
+foreign key (ordenfk)
+references oredencompra(ordenid);
+
