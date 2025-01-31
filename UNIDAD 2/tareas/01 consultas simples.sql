@@ -1,7 +1,19 @@
 --Tarea Consulta simple 
+use Northwind
 
 --1.    Productos con categoría 1, 3 o 5
+
+ Select ProductName,CategoryID,UnitPrice
+from Products
+where CategoryID in (1,3,5);
+
 --2.    Clientes de México, Brasil o Argentina
+
+select * from Customers;
+
+select CustomerID,Country  from Customers  where ( Country='Mexico' or  Country = 'Brazil') and Country ='Argentina'
+
+
 --3.    Pedidos enviados por los transportistas 1, 2 o 3 y con flete mayor a 50
 --4.    Empleados que trabajan en Londres, Seattle o Buenos Aires
 --5.    Pedidos de clientes en Francia o Alemania, pero con un flete menor a 100

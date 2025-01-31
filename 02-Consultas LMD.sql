@@ -296,5 +296,134 @@ where CategoryID in (1,3,5);
    where Quantity in (12,9,40) and Discount in (0.15,0.05)
   
 
-  --CLAUSULA BETWEEN (ENTRE)
+  --CLAUSULA BETWEEN (ENTRE) siempre va en un where 
 
+  --berween valorinicial and valorfinal--
+ -- mostras los productos y entre 10 y 50
+
+ select* from Products
+
+ select UnitPrice  from Products
+ where UnitPrice>=10 and UnitPrice<=50;
+
+ select ProductID, UnitPrice from Products
+ where UnitPrice between 10 and 50
+
+ --seleciona todos los pedidos realizados 
+ --entre el primero de enero y en 30 de junio 1997
+
+ select * from Orders
+
+
+ SELECT OrderDate FROM Orders WHERE OrderDate>= '1997-01-01' AND OrderDate<= '1997-06-30'
+
+ select OrderID as ordeniID, concat (day(OrderDate),  '-',year(OrderDate), '-',month(OrderDate))  as fecha  from Orders
+where OrderDate between '1997-01-01' and  '1997-06-30' ;
+
+
+ select OrderDate  from Orders
+ where  OrderDate  between '1997-01-01' 
+ and  '1997-06-30'
+
+ --seleciona los empleados contratados entre  1992 y 1994 que trabaja en londres
+
+ select * from Employees 
+
+ select EmployeeID from Employees 
+ where year( HireDate)>=1992 
+ and year( HireDate)<= 1994 
+ AND City ='London'
+
+ select* from Employees
+ where year( HireDate) between 1992 and  1994  
+ AND City ='London'
+
+---pedidos de feltes entre 50 y 200 enviasos a alemania y francia 
+select *from Orders;
+
+  select OrderID as [ordenid],OrderDate as [fecha de orde],
+  RequiredDate as[fecha de entrega], Freight as [peso],ShipCountry as [ciudad ] from Orders
+  where Freight>= 50 and Freight<= 200
+  and (ShipCountry = 'France' or  ShipCountry='Germany')
+
+   select OrderID as [ordenid],OrderDate as [fecha de orde],
+  RequiredDate as[fecha de entrega], Freight as [peso],ShipCountry as [ciudad ] from Orders
+  where Freight between 50 and 200
+  and ShipCountry in('France', 'Germany')
+
+  -- seleccionar todos los productos que tengan un precio 
+-- entre 50 y  20 dolares o que sean de la categoria 1,2 o 3
+
+select * from Products;
+
+Select ProductName, UnitPrice,CategoryID
+from Products
+where UnitPrice>= 5 and UnitPrice<= 20 and (CategoryID=1 or CategoryID=2 or CategoryID=3)
+
+
+Select ProductName, UnitPrice,CategoryID
+from Products
+where UnitPrice between 5 and  20 or CategoryID in (1,2,3)
+
+
+
+Select ProductName, UnitPrice,CategoryID
+from Products
+where UnitPrice between 5 and  20  and CategoryID in (1,2,3)
+
+-- empleados con numero de trabajador entre 3 y 7 que no trabajan
+--en londres ni seattle
+select * from Employees 
+
+select EmployeeID as[idempleado],
+CONCAT (FirstName,'',LastName)as
+[nombre completo],
+city as [ciudad] from Employees  where EmployeeID>=3 and EmployeeID<=7
+and (city<>'london'and City<>'seattle')
+
+select EmployeeID as[idempleado],
+CONCAT (FirstName,'',LastName)as
+[nombre completo],
+city as [ciudad] from Employees  where EmployeeID>=3 and EmployeeID<=7
+and not city in ('london','seattle')
+
+
+select EmployeeID as[idempleado],
+CONCAT (FirstName,'',LastName)as
+[nombre completo],
+city as [ciudad] from Employees  where EmployeeID between 3 and 7
+and (city<>'london'and City<>'seattle')
+
+--clausuala like 
+--patrones :
+--1.- % ->(porsentaje )reprersenta 0 o mas caracteres en el patron de busquedad 
+--2.- _ ->( guion bajo) representa un caracter en el patron  de busquedad 
+--3.- [] (corchetes) se utiliza para definir un conjunto de caracteres 
+-- buscando cualquiera de ellos  en la posicion especifica 
+--4.- [^] ->(corchetes, sento ) se utiliza para buscar carecateres que no estan
+--dentro del conjunto especifico 
+
+--Buscar los productos que empizan con C
+
+select* from Products;
+
+select* from Products WHERE ProductName like'C%'
+select* from Products WHERE ProductName like'Ch%'
+
+select* from Products WHERE ProductName 
+like'Cha%'  and UnitPrice=18
+
+--BUSCAR TODOS LOS PRODUCTOS QUE TERMINEN CON E 
+
+select* from Products WHERE ProductName like'%e'
+
+
+--selecionar todos los quientes cuyo nombre de empresa contiene  la palabra "co" en cualquier parte 
+
+select * from Customers  where CompanyName like'%co%'
+
+--selecionar los empleadoa cuy nombre comiense con A	y tenga 5 caracteres 
+
+select *from Employees
+
+select  LastName,FirstName from Employees where FirstName like'A_____'
