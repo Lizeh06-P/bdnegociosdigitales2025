@@ -318,7 +318,7 @@ where CategoryID in (1,3,5);
  SELECT OrderDate FROM Orders WHERE OrderDate>= '1997-01-01' AND OrderDate<= '1997-06-30'
 
  select OrderID as ordeniID, concat (day(OrderDate),  '-',year(OrderDate), '-',month(OrderDate))  as fecha  from Orders
-where OrderDate between '1997-01-01' and  '1997-06-30' ;
+where OrderDate between '1997-01-01' and  '1997-06-30'
 
 
  select OrderDate  from Orders
@@ -426,4 +426,4 @@ select * from Customers  where CompanyName like'%co%'
 
 select *from Employees
 
-select  LastName,FirstName from Employees where FirstName like'A_____'
+select  LastName,FirstName from Employees where FirstName like'A_____';
