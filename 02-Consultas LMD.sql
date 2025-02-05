@@ -427,3 +427,41 @@ select * from Customers  where CompanyName like'%co%'
 select *from Employees
 
 select  LastName,FirstName from Employees where FirstName like'A_____';
+  USE Northwind
+ --selecionar los productos que comiencen con A O B
+ select *from Products
+  select *from Products where ProductName like '[ABC]%'
+
+    select *from Products where ProductName like '[A-M]%'
+
+	--SELECIONAR TODOS LOS PRODUCTOS QUE NO COMIENCEN CON A O B
+
+	 select *from Products where ProductName like '[^AB]%'
+	 
+
+	 --SELELCIONAR TODOS LOS PRODUCTOS  DONDE EL NOMBRE
+	 --QUE COMIENCE CON A PERO NOCONTENGA LA e
+
+	 
+	 select *from Products where ProductName like 'a%[^e]'
+	 
+	 --clausula order by 
+
+	  select ProductID,ProductName, UnitPrice, UnitsInStock from Products
+	  order by UnitPrice desc
+
+	   select ProductID,ProductName, UnitPrice, UnitsInStock from Products
+	  order by 3 desc
+
+	   select ProductID,ProductName, UnitPrice as 'precio', UnitsInStock from Products
+	  order by 'precio' desc
+	  --selecionar los clientes ordenados por pais y dentr por ciuudad 
+
+	  select  CustomerID,Country,city  from Customers order by Country asc, city asc
+
+	    select  CustomerID,Country,city  from Customers order by Country asc, city desc
+
+	  select  CustomerID,Country,city  from Customers where Country IN ('Brazil','Germany') order by Country asc, city desc
+
+  select  CustomerID,Country,city,region  from Customers 
+  where (Country ='Brazil'or Country ='Germany') and  region is not null

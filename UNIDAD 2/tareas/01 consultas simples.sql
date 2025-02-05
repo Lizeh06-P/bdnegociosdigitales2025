@@ -66,4 +66,4 @@ select* from Products
 
  Select ProductName,CategoryID,UnitsInStock,Discontinued
 from Products
-where CategoryID in (2,4,6) and Discontinued='0' AND UnitsInStock>='50'
+where CategoryID in (1,3,5) and Discontinued='0' AND UnitsInStock>='50'
