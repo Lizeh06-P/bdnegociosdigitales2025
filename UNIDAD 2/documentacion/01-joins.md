@@ -1,3 +1,9 @@
+#Inner Joins
+![Inner join] (../img/![alt text](img/img_inner_join.png))
+
+
+```sql
+
 --joins (contar ) se divide en INNER, LEFT, RIGHT, CROSS, FULL  JOINS van en el FROM  ejemplo
 --select * from  
 --tabla 1  Inner tabla2 
@@ -408,16 +414,142 @@ on od.ProductID=p.ProductID
 group by s.CompanyName 
 order by 2 desc
 
+use Northwind
+
 --18.obtener la cantidad de pedidos enviados por cada empresa de transporte 
 
+select s.CompanyName as [transportista ]  ,count(*)  from  Orders as o
+inner join  
+Shippers as s
+on o.ShipVia=s.ShipperID
+group by s.CompanyName
+
+
+select count(*) from Orders
+
+select count(OrderID) from Orders
+
+select count(ShipRegion) from Orders
 
 
 
+--19.obtener los clientes que han realizado pedidos mas de un producto distintps 
 
+select c.CompanyName,count( distinct ProductID) as[numero de productos ]  from  Customers as c
+inner join Orders as o 
+on c.CustomerID=o.CustomerID
+inner join [Order Details] as od
+on od.OrderID=o.OrderID
+group by c.CompanyName
+order by 2 desc
 
 
 
 
 --consulta avanzadas 
+ 
+ --20.-Listar los empleados con la cantidad total de pedidos que lo han gestado ,
+ -- y a que clientes les han vendido agrupando por nombre completo y dentro de este nombre por 
+ --cliente ordenalos por la cantidad de mayor de pedidos 
+
+ select concat(e.FirstName, '' , e.LastName) as [nombre completo],
+ c.CompanyName as[cliente ]
+ ,count(OrderID) as [numero de orden]
+ from Employees  as e
+ inner join  Orders as o
+ on e.EmployeeID=o.EmployeeID
+  inner join Customers as c
+ on c.CustomerID=o.CustomerID
+ group by e.FirstName,e.LastName,c.CompanyName
+ order by[nombre completo],[cliente ]ASC
 
 
+
+ select concat(e.FirstName, '' , e.LastName) as [nombre completo],
+ count(OrderID) as [numero de orden]
+ from Employees  as e
+ inner join  Orders as o
+ on e.EmployeeID=o.EmployeeID
+ group by e.FirstName,e.LastName
+ order by[nombre completo] asc
+
+
+
+
+ --21.-listar las categorias con el  total de ingreso generados por sus productos
+ use Northwind
+
+
+ select c.CategoryID, c.CategoryName,p.ProductName,sum(Quantity) as [total]
+ from  Categories as c
+ inner join Products as p
+ on c.CategoryID=p.CategoryID
+ inner join  [Order Details] as od
+ on od.ProductID= p.ProductID
+ group by c.CategoryID,c.CategoryName,p.ProductName
+
+ --22.-lista los clientes con el total de dinero que a ($) gastado en pedidos 
+
+ select c.CompanyName,sum(Quantity * od.UnitPrice) as total
+ from   Customers as c
+ inner join   Orders as o
+ on c.CustomerID=o.CustomerID
+ inner join [Order Details] as od
+ on o.OrderID=od.OrderID
+ group by c.CompanyName
+
+ --23.-listar los pedidos realizados entre 1 de enero de 1997 y el
+ -- 30 de junio de 1997 y mostrar el total en dinero
+
+ select o.OrderID,o.OrderDate,od.Quantity
+ from  Orders as o 
+ inner join [Order Details] as od
+  on o.OrderID= od.OrderID
+  where o.OrderDate between '01-01-1997' and '30-06-1997'
+  group by o.OrderID,o.OrderDate,od.Quantity 
+
+   select o.OrderID, sum(od.Quantity *od.UnitPrice) as [total]
+ from  Orders as o 
+ inner join [Order Details] as od
+  on o.OrderID= od.OrderID
+  where o.OrderDate between '01-01-1997' and '30-06-1997'
+  group by o.OrderID,o.OrderDate,od.Quantity 
+
+ --24.-listar los productos con las categorias Beverages,seafood,confections
+  select p.ProductID,p.ProductName from Products as p 
+  inner join Categories as c
+  on p.CategoryID= c.CategoryID
+  where c.CategoryName in ('Beverages','seafood','confections')
+
+ --25.-listar los clientes ubicados en Alemania y que hayan 
+ --realizado pedidos antes de 1 de enero de 1997
+ select o.OrderDate,c.CompanyName,c.Country from  Customers as c
+ inner join Orders as o
+ on c.CustomerID= o.CustomerID
+ where  o.OrderDate<'01-01-1997'and c.Country ='Germany'
+
+
+
+ --26.-listar los clientes que han realizado pedidios con un total entre $500 y $2000
+
+ select c.CompanyName, SUM(od.Quantity*od.UnitPrice) AS Total
+ from Customers as c
+ inner join Orders as o 
+ on c.CustomerID=o.CustomerID
+ inner join [Order Details] as od
+ on o.OrderID=od.OrderID
+ group by c.CompanyName
+  having sum(od.Quantity *od.UnitPrice) BETWEEN 500 AND 2000
+
+
+ SELECT c.CustomerID, c.CompanyName, SUM(od.Quantity) AS Total
+FROM Customers AS c
+INNER JOIN Orders AS 
+o ON c.CustomerID = o.CustomerID
+INNER JOIN [Order Details] AS od 
+ON o.OrderID = od.OrderID
+GROUP BY c.CustomerID, c.CompanyName
+HAVING SUM(od.Quantity) BETWEEN 500 AND 2000
+
+
+--left join,right join, full join y cross join 
