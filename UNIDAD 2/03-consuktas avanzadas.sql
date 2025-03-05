@@ -547,3 +547,11 @@ HAVING SUM(od.Quantity) BETWEEN 500 AND 2000
 
 
 --left join,right join, full join y cross join 
+
+use Northwind
+
+
+-- pracctica de utilizacion de left join
+--SELECCIONAR LOS DATOS QUE SE VAN A UTILIZAR PARA INSERTAR EN LA TABLA
+--DE LA TABLA PRODUCTS NEW
+--product_id,productName,Custommer,Category ,unitprice,discontinued,inserted_date
