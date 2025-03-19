@@ -1,0 +1,2 @@
+--funciones de cadena ,fecha, intruciones de control ,
+--variables 
