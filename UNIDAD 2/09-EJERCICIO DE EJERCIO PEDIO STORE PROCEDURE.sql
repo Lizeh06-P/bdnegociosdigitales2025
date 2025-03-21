@@ -60,6 +60,7 @@ begin
 
 	end try
 	begin catch
+
 	print 'Error al actualizar datos'
 	return;
 	end catch
@@ -82,3 +83,7 @@ end;
  @producto = '2A44L', @cantidad =20
 
  SELECT * FROM Pedidos
+
+
+
+--informacion del cliente y empleado
