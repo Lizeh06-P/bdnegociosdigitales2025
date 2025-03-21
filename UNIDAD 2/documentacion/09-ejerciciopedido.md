@@ -12,51 +12,54 @@
 -actualizar el sock del productrestando el stock  menos  la cantidad vendid
 
 ```sql
- create or  alter procedure spu_realizar_pedido
- @numPedido int,@cliente int,
- @repre int , @fab char(3),
- @producto char (5), @cantidad int
- as 
- begin 
-if exists (select 1 from  Pedidos where Num_Pedido = @numPedido)
+ create or alter proc spu_RealizarPedido
+@numPedido int, @cliente int,
+@repre int, @fab char(3), 
+@ Producto char(5), @cantidad int
+as 
 begin
-print ('el pedidO ya existe')
-return 
-end
+	if exists (select 1 from Pedidos where Num_Pedido = @numPedido) -- verificamos si el pedido existe
+	begin
+	print 'el pedido ya existe'
+	return
+	end 
+	if	not exists (select 1 from Clientes where Num_Cli = @cliente) or -- verificamos si el cliente existe
+		not exists (select 1 from Representantes where Num_Empl = @repre) or
+		not exists (select 1 from Productos where Id_fab= @fab and Id_producto = @proceducto) 
+	begin
+	print 'el pedido ya existe'
+	return
+	end 
 
-if exists (select 1 froM Clientes where Num_Cli = @cliente) OR NOT 
-exists(select 1 froM Representantes where Num_Empl = @repre) OR NOT  exists 
-(select 1 froM Productos where Id_fab = @fab and Id_producto = @producto)
+	if @cantidad <= 0
+	begin 
+		print 'la cantidad no puede ser 0 o negativo'
+		return ;
+	end
+	declare @stockvalido int
+	select @stockvalido= Stock from Productos
+	where Id_fab = @fab and Id_producto = @proceducto
 
-begin
-print ( 'los datos no son validos ')
-return 
-end
-IF @cantidad <=0
-beGIN  
-PRINT 'LA CANTIDAD O PUEDE SER NEGATIVO'
-RETURN;
-END 
-DECLARE @stockvalido int 
-select  @stockvalido from Productos where Id_fab = @fab and Id_producto =@producto
- IF  @cantidad> @stockvalido
- BEGIN
- PRINT 'NO HAY SUFICIENTE STOCK'
- RETURN;
- END 
- declare  @precio money 
- declare @importe  money 
- select @precio= @precio from Productos where Id_fab = @fab and Id_producto = @producto
- set @importe = @cantidad *@precio
+		if @cantidad > @stockvalido
+	begin 
+		print 'no hay suficiente stock'
+		return;
+	end
+	declare @precio money
+	declare @importe money 
+	select @precio = Precio  from   Productos where Id_fab = @fab  and Id_producto = @proceducto
+	
+	set @importe= @cantidad * @precio
 
- begin try
- --se inserts un perdido
-	insert into pedidos
-	values(@numPedido, GETDATE(), @cliente, @repre, @fab, @producto, @cantidad,@importe)
+	begin try
+	-- se inserto un pedido
 
-	update productos
+	insert into Pedidos
+	values(@numPedido, GETDATE(), @cliente, @repre, @fab, @ Producto, @cantidad,@importe)
+
+	update Productos
 	set Stock = Stock - @cantidad
-	where Id_fab = @fab and Id_producto = @producto;
+	where Id_fab = @fab and Id_producto = @proceducto;
 
 	end try
 	begin catch
@@ -65,4 +68,18 @@ select  @stockvalido from Productos where Id_fab = @fab and Id_producto =@produc
 	end catch
 end;
 
+```
+
 ## pruebas 
+
+exec spu_realizar_pedido @numPedido = 113071, @cliente = 
+ 2117, @repre = 111, @fab = 'ACI', @Producto = '4100X', @cantidad = 20;
+
+ exec spu_realizar_pedido  @numPedido = 113070,@cliente =2117,
+ @repre =106, @fab ='ret',
+ @producto = '2A44L', @cantidad =20
+
+
+  exec spu_realizar_pedido  @numPedido = 112920 ,@cliente =2000,
+ @repre =106, @fab ='ret',
+ @producto = '2A44L', @cantidad =20
