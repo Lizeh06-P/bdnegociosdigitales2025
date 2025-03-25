@@ -1,12 +1,8 @@
 
+##
+CREAR UN STORE PROCEDURE QUE PERMITA SABER SI UN ALUMNO APROBO O REPROBO 
 
---funciones de cadena ,fecha, intruciones de control ,
---variables 
-
-
----CREAR UN STORE PROCEDURE QUE PERMITA SABER SI UN ALUMNO APROBO O REPROBO 
-
-
+```sql
 CREATE OR ALTER PROC spu_comparar_calificacion
 @calif decimal (10,2)--parametro de entrada 
 as 
