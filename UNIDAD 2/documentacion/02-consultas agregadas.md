@@ -1,8 +1,9 @@
 ## Consultas basicas 
 
---consulta de agregado 
---nota solo devuelven un solo registro cuando no tiene 
---sum, avg ,count,count(*),max y min 
+--consulta de agregado nota solo devuelven un solo registro cuando no tiene sum, avg ,count,count(*),max y min
+
+![GREGADO](../documentacion/img/simple.png)
+
 
 ```sql
 use Northwind
@@ -146,10 +147,32 @@ SELECT  CategoryID, COUNT(*) AS 'NUMEROS DE PRODUCCCTOS' FROM Products GROUP BY 
   group by OrderID, ProductID
    order by 2 desc
 
+```
+ ## Having y Where
 
-   --having  y el where son parecidad pero having filtran grupos y where filtra filas 
+having  y el where son parecidad pero having filtran grupos y where filtra filas 
 
 
+## Concepto fácil:
+
+WHERE: Filtra filas antes de agrupar. Se usa para especificar condiciones sobre las filas individuales de la tabla antes de que cualquier agregación o agrupamiento ocurra.
+
+HAVING: Filtra grupos después de agrupar. Se usa para especificar condiciones sobre los resultados de la agregación (por ejemplo, sumas, promedios) que se hacen después de que los datos han sido agrupados.
+
+## En resumen:
+
+WHERE se aplica antes de la agrupación (filtra filas).
+
+HAVING se aplica después de la agrupación (filtra grupos).
+
+## Ejemplo simple:
+WHERE: "Mostrar todos los empleados que ganan más de $5000".
+
+HAVING: "Mostrar los departamentos donde la suma de los salarios es mayor a $10000".
+
+
+
+```sql
    --selelcinar el numero de productospor categorias solo los que tengan mas de 10 productos 
 
    --paso 1
@@ -205,6 +228,10 @@ having sum (UnitPrice)>10
 	select * from Orders
 
 ```
+
+
+
+
 ## Consulta Simples   LMD
  
 ```sql

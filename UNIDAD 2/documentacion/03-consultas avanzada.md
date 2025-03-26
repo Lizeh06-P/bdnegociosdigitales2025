@@ -1,12 +1,15 @@
 
  ## CONSULTAS AVANZADA
 
+ 1.-joins (contar ) se divide en INNER, LEFT, RIGHT, CROSS, FULL  JOINS van en el FROM  ejemplo
+
+
+select * from  
+tabla 1  Inner tabla2 
+     pk      fk    
+on  campo = campos
+
 ```SQL
---joins (contar ) se divide en INNER, LEFT, RIGHT, CROSS, FULL  JOINS van en el FROM  ejemplo
---select * from  
---tabla 1  Inner tabla2 
---      pk      fk    
---on  campo = campos
 
 USE northwind
 --selecionar todas las categorias y productos 

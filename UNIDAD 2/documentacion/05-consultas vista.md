@@ -1,15 +1,22 @@
  ## Views
 
+ Crear una vista (CREATE VIEW) significa crear una tabla virtual que se deriva de una consulta SQL. Una vista no contiene datos por sí misma, sino que almacena una consulta que extrae y presenta datos de las tablas existentes en la base de datos. Puedes pensar en una vista como una "tabla virtual" que se actualiza en tiempo real cada vez que la consultas.
+
+
+![AGREGAR](../documentacion/img/image-result-View-in-SQL.png)
+
 
  ## sintaxis 
 
- ```sql
-/*create view nombreVista
+
+ /*create view nombreVista
 AS
 select columnas 
 from table 
 where condicion 
 */
+
+ ```sql
 
 use Northwind
 

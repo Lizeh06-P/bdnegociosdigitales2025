@@ -2,6 +2,11 @@
 ##
 CREAR UN STORE PROCEDURE QUE PERMITA SABER SI UN ALUMNO APROBO O REPROBO 
 
+un procedimiento almacenado o store procedure es un conjunto de instrucciones SQL que se almacenan y se ejecutan en una base de datos de manera centralizada. Estos procedimientos son creados para realizar tareas específicas, como consultas, actualizaciones, inserciones, o eliminar datos en la base de datos, y pueden ser ejecutados muchas veces sin necesidad de reescribir el código cada vez
+
+
+ ![AGREGAR](../documentacion/img/STORE.png)
+
 ```sql
 CREATE OR ALTER PROC spu_comparar_calificacion
 @calif decimal (10,2)--parametro de entrada 

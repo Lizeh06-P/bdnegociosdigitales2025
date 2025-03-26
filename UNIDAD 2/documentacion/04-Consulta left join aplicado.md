@@ -1,12 +1,21 @@
  ## ejemplo de left join aplicado 
 
+![GREGADO](../documentacion/img/sql%20joins.png)
+
+LEFT JOIN devuelve todos los registros de la tabla izquierda (clientes), y los registros coincidentes de la tabla derecha (pedidos).
+
+Si no hay coincidencia, las columnas de la tabla derecha (pedidos) aparecerán como NULL.
+
 ```sql
 use Northwind
  select * from products_news
 
  drop table products_news                 --eliminar tabla 
+```
 
- --cargar full
+  ## cargar full
+
+ ```sql
  insert into products_news
 select  p.ProductID,p.ProductName,
 [cu].CompanyName ,
@@ -20,8 +29,10 @@ inner join Orders  as o
 on o.OrderID = od.OrderID
 inner join  Customers as cu
 on [cu].CustomerID = o.CustomerID
+```
+## crea la tabla solo con la estructura 
 
---crea la tabla solo con la estructura 
+```sql
 select  top 0 p.ProductID,p.ProductName,
 [cu].CompanyName ,
 c.CategoryName, od.UnitPrice,p.Discontinued, GETDATE() as 'inserted_date'
@@ -35,9 +46,10 @@ inner join Orders  as o
 on o.OrderID = od.OrderID
 inner join  Customers as cu
 on [cu].CustomerID = o.CustomerID
+```
+## crear una tabla apartir de una consulta 
 
-
----crear una tabla apartir de una consulta 
+```sql
 
 select  p.ProductID,p.ProductName,
 [cu].CompanyName ,
@@ -52,9 +64,11 @@ inner join Orders  as o
 on o.OrderID = od.OrderID
 inner join  Customers as cu
 on [cu].CustomerID = o.CustomerID
+```
 
---con alias 
+##  con alias 
 
+```sql
 select  top 0
 0 as [productbk], p.ProductID,p.ProductName as [producto],
 [cu].CompanyName  as [customer],
@@ -78,7 +92,11 @@ select * from products_news
 alter table products_news
 add constrainr pk_products_news
 primary key (productbk) identity(1,1)
---crear la table mediante 
+
+```
+## crear la table mediante 
+
+```sql
 
 drop  table products_news
 select  top 0 p.ProductID,p.ProductName as [producto],
@@ -129,8 +147,11 @@ products_news as pn
 on p.ProductID=pn.ProductID
 where pn.ProductID is null   --- buscar los nuevos 
 
+```
 
---carga delta 
+## carga delta 
+
+```sql
  insert into products_news
 	 (ProductID,producto,customer,CategoryName,UnitPrice,Discontinued,inserted_date)
 	select p.ProductID,p.ProductName as [producto],
@@ -171,11 +192,9 @@ where pn.ProductID is null   --- buscar los nuevos
 
 	  select * from Products
 
-
-	  	  
 	  select * from  Products as p1
 	  right join products2 as p2
 	  on p1.ProductID =p2.ProductID
 
-
+```
       
