@@ -601,11 +601,178 @@ db.libros.find({titulo:/^J/})
 ## Operador $regex
 [OPERADORES $Regex](https://www.mongodb.com/docs/manual/reference/operator/query/regex/)
 
+--Selecionar los libros  que contenga la palabra "para"
+```json
+db.libros.find(
+    {
+        titulo:{
+            $regex:'para'
+        }
+    }
+)
+
+db.libros.find(
+    {
+        titulo:{
+            $regex:/para/
+        }
+    }
+)
+
+```
+--selecionar tosos los titulos que  contengan la palabra Json
+
+```json
+db.libros.find(
+    {
+        titulo:{
+            $regex:'JSON'
+        }
+    }
+)
+
+db.libros.find(
+    {
+        titulo:{
+            $regex:/JSON/
+        }
+    }
+)
+
+```
+---
+
+--dsistingir entre Mayusculas y minusculas 
+```json
+
+
+db.libros.find(
+    {
+        titulo:{
+            $regex:/json/i
+        }
+    }
+)
+
+{ <field>: { $regex: /pattern/, $options: '<options>' } }
+
+db.libros.find(
+    {
+        titulo:{
+            $regex:/json/, $options:'i'
+        }
+    }
+)
+
+db.libros.find(
+    {
+        titulo:{
+            $regex:/^j/, $options:'i'
+        }
+    }
+)
+
+```
+
+--selecionar todods los documentos de libro donde los titulos comiensen con 'es' y no distingan entre mayuscula y minusvula 
+
+
+```json
+db.libros.find(
+    {
+        titulo:{
+            $regex:/es$/, $options:'i'
+        }
+    }
+)
+
+
+```
 
 
 ## Metodos Sort (operador documento)
 
+--ordenar los libros de manarea ascendentes por el precio 
+```json
+
+db.libros.find(
+{},{
+    _id:0,
+    titulo:1,
+    precio:1
+
+})
 
 
+db.libros.find(
+{},{
+    _id:0,
+    titulo:1,
+    precio:1
 
-## 
+}).sort({precio:1})
+
+```
+
+---oedwnar los libros decendentes 
+```json
+db.libros.find(
+{},{
+    _id:0,
+    titulo:1,
+    precio:1
+
+}).sort({precio:-1})
+``
+
+ordenar los libros acedente por la editorial  y de maner adecedente por el precio mostrando  el titulo  el precio ybla editorial 
+```json
+
+db.libros.find(
+{},{
+    _id:0,
+    precio:1,
+    editorial:1
+
+}).sort({editorial:1, precio:-1})
+
+```
+## otros metodos dkip,limit,size
+```json
+
+db.libros.find(
+    {}
+
+).size()
+
+
+db.libros.find(
+    {
+        titulo:{
+            $regex:/^j/, $options:'i'
+        }
+    }
+).size()
+
+
+```
+
+--Busccar todos los libros pero mostrar los 2 primeros 
+
+
+```json
+
+db.libros.find({}).limit(2)
+
+--saltar 
+db.libros.find({}).skip(2)
+
+```
+
+
+## Borrar coleciones y base de datos 
+
+db.libros.drop()
+
+
+db.dropDatabase()
